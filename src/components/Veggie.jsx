@@ -1,10 +1,10 @@
 import { Splide, SplideSlide } from '@splidejs/react-splide';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 function Veggie() {
   const [veggie, setVeggie] = useState([]);
-  console.log(veggie);
 
   useEffect(() => {
     getPopular();
@@ -29,28 +29,32 @@ function Veggie() {
     <div>
       <Wrapper>
         <h3>Vegetarian Picks</h3>
-        <Splide options={{
+        <Splide
+          options={{
             perPage: 3,
             arrows: false,
             pagination: false,
             drag: 'free',
             gap: '5rem',
-        }}>
+          }}
+        >
           {veggie.map((recipe) => {
             return (
               <SplideSlide key={recipe.id}>
-                <Card>
-                  <p>{recipe.title}</p>
-                  <img src={recipe.image} alt='menu item' />
-                  <Gradient />
-                </Card>
+                <Link to={'/recipe/' + recipe.id}>
+                  <Card>
+                    <p>{recipe.title}</p>
+                    <img src={recipe.image} alt='menu item' />
+                    <Gradient />
+                  </Card>
+                </Link>
               </SplideSlide>
             );
           })}
         </Splide>
       </Wrapper>
     </div>
-  )
+  );
 }
 
 const Wrapper = styled.div`
@@ -96,7 +100,7 @@ const Gradient = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,5));
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 5));
 `;
 
-export default Veggie
+export default Veggie;
